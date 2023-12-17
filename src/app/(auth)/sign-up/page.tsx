@@ -3,18 +3,19 @@
 import Link from "next/link";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { Button } from "@/ui/button";
+import { Button, buttonVariants } from "@/ui/button";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { AuthCredentialsValidator, TAuthCredentialsValidator } from "@/lib/validators/accound-credentials-validators";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  AuthCredentialsValidator,
+  TAuthCredentialsValidator,
+} from "@/lib/validators/accound-credentials-validators";
+import { trpc } from "@/trpc/client";
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
-
-
-
   const {
     register,
     handleSubmit,
@@ -23,15 +24,21 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   })
 
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
 
-  const onSubmit = ({email,password}:TAuthCredentialsValidator) =>{
-
+  });
+  const onSubmit = ({
+    email,
+    password,
+  }: TAuthCredentialsValidator) => {
+    mutate({ email, password })
   }
 
+
   return (
-    <div className="min-h-screen  flex items-center justify-center px-7 md:px-0 ">
+    <div className="flex items-center justify-center pt-32 px-20 ">
       <div
-        className="w-full max-w-md p-3  sm:p-4 lg:p-8 md:py-5 rounded-md text-white "
+        className="w-full max-w-md p-3 sm:p-4 lg:p-8 md:py-5 rounded-md text-white bg-slate-400 bg-opacity-20"
         id="sign-up"
       >
         <div className="flex flex-col items-center space-y-4">
@@ -52,14 +59,13 @@ const Page = () => {
           </Link>
         </div>
         <hr className="w-full bg-gray-100 dark:bg-gray-700 h-1 mx-auto mt-3  border-0 rounded " />
-        <div className="grid  gap-4 mt-3">
-          <form onSubmit={handleSubmit(onSubmit)} >
-            <div className="grid gap-y-3 lg:gap-y-4  ">
-              <div className="grid gap-y-1 lg:gap-y-2 ">
+        <div className="grid gap-4 mt-3">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="grid gap-y-3 lg:gap-y-4">
+              <div className="grid gap-y-1 lg:gap-y-2">
                 <Label htmlFor="Email">Email</Label>
-
                 <Input
-                {...register("email")}
+                  {...register("email")}
                   type="email"
                   className={cn(
                     "border p-2 text-black focus:outline-none focus:ring focus:border-black",
@@ -68,11 +74,10 @@ const Page = () => {
                   placeholder="Email"
                 />
               </div>
-              <div className="grid gap-y-1 lg:gap-y-2 ">
+              <div className="grid gap-y-1 lg:gap-y-2">
                 <Label htmlFor="Password">Password</Label>
                 <Input
-                {...register("password")}
-
+                  {...register("password")}
                   type="password"
                   className={cn(
                     "border p-2 text-black focus:outline-none focus:ring focus:border-black",
@@ -82,7 +87,7 @@ const Page = () => {
                 />
               </div>
               <div className="flex justify-end">
-                <Button variant="ghost" className=" w-[100px]">
+                <Button variant="ghost" className="w-[100px]">
                   Sign Up
                 </Button>
               </div>
@@ -91,8 +96,8 @@ const Page = () => {
         </div>
       </div>
     </div>
-  );
-};
-
+    
+  )
+}
 
 export default Page;

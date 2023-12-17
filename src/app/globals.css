@@ -3,24 +3,12 @@
 @tailwind utilities;
 
 
-#sign-up{
-   background-color: rgb(203 213 225 / 0.1);
-}
-.carousel {
-  @apply relative w-full overflow-hidden;
+
+
+body{
+  background-color:black;
 }
 
-.slides {
-  @apply flex transition-transform duration-500 ease-in-out;
-}
-
-.slide {
-  @apply min-w-full box-border;
-}
-
-.legend {
-  @apply text-center;
-}
 @layer base {
   :root {
     --background: 0 0% 100%;

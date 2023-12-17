@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon ",
+    "generate:types":"cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
+},
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@payloadcms/bundler-webpack": "^1.0.5",
@@ -35,7 +36,7 @@
     "lucide-react": "^0.292.0",
     "next": "^14.0.1",
     "nodemailer": "^6.9.7",
-    "payload": "^2.0.15",
+    "payload": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
