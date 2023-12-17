@@ -36,3 +36,4 @@ export const authRouter = router({
           return { success: true, sentToEmail: email }
         }),
 });
+

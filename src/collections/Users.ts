@@ -1,7 +1,7 @@
 import { CollectionConfig } from "payload/types";
 
 export const Users: CollectionConfig = {
-  slug: "users",
+  slug: 'users',
   auth: true,
   access: {
     read: () => true,
@@ -9,14 +9,14 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
-      name: "role",
-      defaultValue: "user",
+      name: 'role',
+      defaultValue: 'user',
       required: true,
 
-      type: "select",
+      type: 'select',
       options: [
-        { label: "Admin", value: "admin" },
-        { label: "Users", value: "user" },
+        { label: 'Admin', value: 'admin' },
+        { label: 'User', value: 'user' },
       ],
     },
   ],
