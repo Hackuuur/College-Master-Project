@@ -1,19 +1,23 @@
 'use client'
 
-import Link from "next/link";
-import { Input } from "@/ui/input";
-import { Label } from "@/ui/label";
-import { Button, buttonVariants } from "@/ui/button";
-import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+  Button,
+  buttonVariants,
+} from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+
 import {
   AuthCredentialsValidator,
   TAuthCredentialsValidator,
-} from "@/lib/validators/accound-credentials-validators";
-import { trpc } from "@/trpc/client";
-import { useRouter } from 'next/navigation'
+} from '@/lib/validators/account-credentials-validator'
+import { trpc } from '@/trpc/client'
 
 const Page = () => {
   const {
@@ -24,6 +28,7 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   })
 
+
   const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
 
   });
@@ -33,7 +38,6 @@ const Page = () => {
   }: TAuthCredentialsValidator) => {
     mutate({ email, password })
   }
-
 
   return (
     <div className="flex items-center justify-center pt-32 px-20 ">
@@ -74,17 +78,16 @@ const Page = () => {
                   placeholder="Email"
                 />
               </div>
-              <div className="grid gap-y-1 lg:gap-y-2">
-                <Label htmlFor="Password">Password</Label>
-                <Input
-                  {...register("password")}
-                  type="password"
-                  className={cn(
-                    "border p-2 text-black focus:outline-none focus:ring focus:border-black",
-                    { "focus-visible:ring-red-500": errors.password }
-                  )}
-                  placeholder="Password"
-                />
+              <div className='grid gap-1 py-2 '>
+                  <Label htmlFor='password'>Password</Label>
+                  <Input
+                    {...register('password')}
+                    type='password'
+                    className={cn(
+                      "border p-2 text-black focus:outline-none focus:ring focus:border-black",
+                      { "focus-visible:ring-red-500": errors.password })}
+                    placeholder='Password'
+                  />
               </div>
               <div className="flex justify-end">
                 <Button variant="ghost" className="w-[100px]">

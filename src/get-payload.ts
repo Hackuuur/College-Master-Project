@@ -16,7 +16,7 @@ if(!cached){
 }
 
 interface Args{
-    initOptions?: Partial<InitOptions> //partial is type of typescript
+    initOptions?: Partial<InitOptions>
 }
 
 export const getPayloadClient = async ({
