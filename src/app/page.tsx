@@ -2,7 +2,7 @@ import { Wrapper } from "@/components/Wrapper";
 import {ArrowRight } from "lucide-react";
 import { FaGithub, FaFacebook, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
-import                                                                                                               React from "react";
+import  Home from "@/components/Home"                                                                                                            React from "react";
 
 const Page = () => {
   return (
@@ -37,6 +37,7 @@ const Page = () => {
             <FaInstagram />
           </Link>
         </div>
+      <Home/>
       </div>
     </Wrapper>
   );
