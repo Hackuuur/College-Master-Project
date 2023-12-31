@@ -4,8 +4,12 @@ import { Wrapper } from "./Wrapper";
 import Link from "next/link";
 import { MenuIcon, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-
-export default function Navbar() {
+import { getServerSideUser } from "@/lib/payload-utils";
+import { cookies } from "next/headers";
+import UserAccountNav from "./UserAccountNav";
+const Navbar = async () => {
+  const nextCookies = cookies()
+  const { user } = await getServerSideUser(nextCookies)
   return (
     <div className="h-16 pt-2.5 top-0 sticky  backdrop-blur-md bg-opacity-50 z-50 ">
       <Wrapper className="flex justify-between items-center text-white">
@@ -35,11 +39,16 @@ export default function Navbar() {
               <button className=" px-2 py-1.5 text-white bg-black hover:bg-white hover:border hover:transition-all hover:duration-700 hover:border-black hover:border-solid hover:text-black focus:outline-none font-medium rounded-lg text-sm">
                 Search
               </button>
+            
+            {user ? (
+              <UserAccountNav user={user} />
+            ) : (
+              <Link href={'/sign-in'} className="px-3 py-2 text-white hover:text-gray-300">
+                Login
+              </Link>
+            )}
             </div>
           </div>
-          <button className="px-3 py-2 text-white hover:text-gray-300">
-            Login
-          </button>
           <div className="md:hidden">
             <MenuIcon />
           </div>
@@ -47,4 +56,6 @@ export default function Navbar() {
       </Wrapper>
     </div>
   );
-}
+};
+
+export default Navbar;
